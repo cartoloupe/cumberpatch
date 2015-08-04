@@ -27,9 +27,8 @@ def write_assertion_step_definition
   STEPDEF
 end
 
-NSTEPS = 10
-wasd = rand(1..NSTEPS) - 1
-NSTEPS.times do |n|
+wasd = rand(1..N_STEP_FILES) - 1
+N_STEP_FILES.times do |n|
   file_name = "#{random_verb}_#{random_noun}".gsub(" ","_")
   file_path = "features/step_definitions/#{file_name}_steps.rb"
 
@@ -37,7 +36,7 @@ NSTEPS.times do |n|
     if wasd == n
       f.puts write_assertion_step_definition
     end
-    10.times do
+    N_STEP_DEFINITIONS_PER_FILE.times do
       f.puts write_random_step_definition
     end
   end

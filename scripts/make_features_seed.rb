@@ -70,13 +70,13 @@ end
 
 
 @s = Featurer.new
-10.times do
+N_FEATURE_FILES.times do
   file_name = "#{random_adjective}_#{random_noun}".gsub(" ","_")
   file_path = "features/#{file_name}.feature"
 
   File.open(file_path, 'a') do |f|
     f.puts @s.write_feature_header
-    10.times do
+    FEATURES_PER_FILE.times do
       f.puts @s.write_random_feature
     end
   end

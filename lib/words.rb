@@ -790,6 +790,11 @@ end
   end
 end
 
+N_FEATURE_FILES=20
+FEATURES_PER_FILE=20
+N_STEP_FILES = 20
+N_STEP_DEFINITIONS_PER_FILE=20
+
 def random_gherkin
   "#{random_subject} #{random_verb} the #{random_noun}"
 end
