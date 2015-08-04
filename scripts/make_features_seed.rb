@@ -70,15 +70,21 @@ end
 
 
 @s = Featurer.new
+@files ||= []
 N_FEATURE_FILES.times do
   file_name = "#{random_adjective}_#{random_noun}".gsub(" ","_")
   file_path = "features/#{file_name}.feature"
 
-  File.open(file_path, 'a') do |f|
-    f.puts @s.write_feature_header
-    FEATURES_PER_FILE.times do
-      f.puts @s.write_random_feature
+  if @files.include? file_name
+    nil
+  else
+    @files << file_name
+    File.open(file_path, 'a') do |f|
+      f.puts @s.write_feature_header
+      FEATURES_PER_FILE.times do
+        f.puts @s.write_random_feature
+      end
     end
+    puts file_path
   end
-  puts file_path
 end
