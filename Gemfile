@@ -1,0 +1,7 @@
+source 'https://rubygems.org'
+gem 'cucumber'
+gem 'pry'
+gem 'rspec-expectations'
+gem 'randexp'
+gem 'sauerkraut'
+gem 'flay'
