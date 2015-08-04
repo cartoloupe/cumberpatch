@@ -296,7 +296,6 @@ launch
 learn
 level
 license
-lick
 lie
 lighten
 like
@@ -600,8 +599,7 @@ unpack
 untidy
 use
 vanish
-visi
-t
+visit
 wail
 wait
 walk
@@ -637,7 +635,6 @@ yawn
 yell
 zip
 zoom
-
 VERBS
 
 
@@ -738,7 +735,61 @@ water chestnut
 watercress
 yam
 zucchini
-
 NOUNS
 
+SUBJECTS = (<<SUBJECTS).split("\n")
+I
+you
+we
+anyone
+someone
+a customer
+the client
+everyone
+SUBJECTS
 
+ADJECTIVES = (<<ADJECTIVES).split("\n")
+famished
+surprised
+startled
+sullen
+terrified
+furious
+annoyed
+sullen
+groggy
+alert
+tense
+cranky
+gloomy
+irritable
+lonely
+exhausted
+ADJECTIVES
+
+
+def random_noun
+  NOUNS.sample
+end
+
+def random_verb
+  VERBS.sample
+end
+
+def random_subject
+  SUBJECTS.sample
+end
+
+def random_adjective
+  ADJECTIVES.sample
+end
+
+%w(NOUNS VERBS SUBJECTS ADJECTIVES).each do |list|
+  define_method "random_#{list.downcase.chop}" do
+    (Kernel.const_get list.to_sym).send(:sample)
+  end
+end
+
+def random_gherkin
+  "#{random_subject} #{random_verb} the #{random_noun}"
+end
