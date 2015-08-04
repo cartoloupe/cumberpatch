@@ -40,9 +40,7 @@ class Featurer
   end
 
   def write_assertion_step total
-    <<-STEP
-    Then the total should be #{total}
-    STEP
+    "Then the total should be #{total}"
   end
 
   def write_feature_header
@@ -57,9 +55,10 @@ class Featurer
     definition = <<-FEATURE
       Scenario: Some #{random_noun} should #{random_verb}
         Given #{@s.get_random_step.tap{|s| @assertion += s.length}}
-        Given #{@s.get_random_step.tap{|s| @assertion += s.length}}
-        And #{@s.get_random_step.tap{|s| @assertion += s.length}}
-        And #{@s.get_random_step.tap{|s| @assertion += s.length}}
+        #{ rand(1..7).times.map do
+"        And #{@s.get_random_step.tap{|s| @assertion += s.length} }"
+          end.join("\n")
+        }
         When #{@s.get_random_step.tap{|s| @assertion += s.length}}
         #{write_assertion_step @assertion}
 
