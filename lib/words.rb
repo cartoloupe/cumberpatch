@@ -890,12 +890,6 @@ end
   end
 end
 
-N_FEATURE_FILES=150
-FEATURES_PER_FILE=20
-N_STEP_FILES=40
-N_STEP_DEFINITIONS_PER_FILE=40
-SLEEP_RANGE=0
-
 def random_gherkin
   "#{random_subject} #{random_verb} the #{random_noun}"
 end
@@ -932,4 +926,10 @@ end
 def random_file_path dir
   random_subdir dir
 end
+
+N_FEATURE_FILES=150
+FEATURES_PER_FILE=20
+N_STEP_FILES=40
+N_STEP_DEFINITIONS_PER_FILE=40
+SLEEP_RANGE=0
 
