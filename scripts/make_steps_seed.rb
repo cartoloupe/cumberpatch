@@ -40,12 +40,13 @@ class RandomStepper
   end
 end
 
-@s = RandomStepper.new
 
+@s = RandomStepper.new
 wasd = rand(1..N_STEP_FILES) - 1
 N_STEP_FILES.times do |n|
   file_name = "#{random_verb}_#{random_noun}".gsub(" ","_")
-  file_path = "features/step_definitions/#{file_name}_steps.rb"
+  file_path = random_file_path "features/step_definitions/"
+  file_path = File.join(file_path, "#{file_name}_steps.rb")
 
   File.open(file_path, 'a') do |f|
     if wasd == n

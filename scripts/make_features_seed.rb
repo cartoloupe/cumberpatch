@@ -73,7 +73,8 @@ end
 @files ||= []
 N_FEATURE_FILES.times do
   file_name = "#{random_adjective}_#{random_noun}".gsub(" ","_")
-  file_path = "features/#{file_name}.feature"
+  file_path = random_file_path "features/"
+  file_path = File.join(file_path, "#{file_name}.feature")
 
   if @files.include? file_name
     nil

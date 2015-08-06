@@ -765,8 +765,108 @@ gloomy
 irritable
 lonely
 exhausted
+adaptable
+adventurous
+affable
+affectionate
+agreeable
+ambitious
+amiable
+amicable
+amusing
+brave
+bright
+broad-minded
+calm
+careful
+charming
+communicative
+compassionate
+conscientious
+considerate
+convivial
+courageous
+courteous
+creative
+decisive
+determined
+diligent
+diplomatic
+discreet
+dynamic
+easygoing
+emotional
+energetic
+enthusiastic
+exuberant
+fair-minded
+faithful
+fearless
+forceful
+frank
+friendly
+funny
+generous
+gentle
+good
+gregarious
+hard-working
+helpful
+honest
+humorous
+imaginative
+impartial
+independent
+intellectual
+intelligent
+intuitive
+inventive
+kind
+loving
+loyal
+modest
+neat
+nice
+optimistic
+passionate
+patient
+persistent
+pioneering
+philosophical
+placid
+plucky
+polite
+powerful
+practical
+pro-active
+quick-witted
+quiet
+rational
+reliable
+reserved
+resourceful
+romantic
+self-confident
+self-disciplined
+sensible
+sensitive
+shy
+sincere
+sociable
+straightforward
+sympathetic
+thoughtful
+tidy
+tough
+unassuming
+understanding
+versatile
+warmhearted
+willing
+witty
 ADJECTIVES
 
+DIRECTORYS = File.read('/usr/share/dict/propernames').split("\n").map(&:downcase)
 
 def random_noun
   NOUNS.sample
@@ -784,14 +884,14 @@ def random_adjective
   ADJECTIVES.sample
 end
 
-%w(NOUNS VERBS SUBJECTS ADJECTIVES).each do |list|
+%w(NOUNS VERBS SUBJECTS ADJECTIVES DIRECTORYS).each do |list|
   define_method "random_#{list.downcase.chop}" do
     (Kernel.const_get list.to_sym).send(:sample)
   end
 end
 
-N_FEATURE_FILES=200
-FEATURES_PER_FILE=40
+N_FEATURE_FILES=150
+FEATURES_PER_FILE=20
 N_STEP_FILES=40
 N_STEP_DEFINITIONS_PER_FILE=40
 SLEEP_RANGE=0
@@ -799,3 +899,37 @@ SLEEP_RANGE=0
 def random_gherkin
   "#{random_subject} #{random_verb} the #{random_noun}"
 end
+
+[4,6,8,10,12,20].each do |n|
+  define_method "d#{n}" do
+    rand(1..n)
+  end
+end
+
+def random_subdir cwd
+  #puts "cwd on call: #{cwd}"
+  dirs = Dir.glob(cwd+"**").select{|dir|
+    File.directory?(dir) &&
+      dir !~ /step_definitions/ &&
+      dir !~ /support/
+  } + [:random, :noop]
+  #puts "dirs are #{dirs}"
+  chosen_dir = dirs.sample
+  #puts "chosen dir: #{chosen_dir}"
+  if chosen_dir == :random
+    #puts "cwd: #{cwd}"
+    chosen_dir = File.join(cwd, random_directory)
+    #puts "once-chosen chosen dir: #{chosen_dir}"
+    Dir.mkdir chosen_dir
+    chosen_dir
+  elsif chosen_dir == :noop
+    cwd
+  else
+    random_subdir(chosen_dir)
+  end
+end
+
+def random_file_path dir
+  random_subdir dir
+end
+
