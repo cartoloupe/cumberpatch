@@ -20,6 +20,7 @@ class RandomStepper
       definition = <<-STEPDEF
       Given(/#{phrase}/) do
         sleep #{sleep_number}
+        @browser.goto '#{random_url}'
 
         # add #{addend}
         @total.nil? ? @total = #{addend} : @total += #{addend}
@@ -29,6 +30,17 @@ class RandomStepper
     end
 
   end
+
+  def random_url
+    %w(
+      https://www.google.com/
+      http://www.imagemagick.org/
+      https://github.com/dodie/cucumber-gifreporter-experiment
+      http://spectacleapp.com/
+      https://robots.thoughtbot.com/four-phase-test
+    ).sample
+  end
+
 
   def write_assertion_step_definition
     definition = <<-STEPDEF
